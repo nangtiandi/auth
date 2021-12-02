@@ -10,7 +10,7 @@ use App\Http\Requests\UpdateCategoryRequest;
 class CategoryController extends Controller
 {
     public function __construct(){
-        return $this->middleware('auth');
+        return $this->middleware(['auth','isAdmin']);
     }
     /**
      * Display a listing of the resource.

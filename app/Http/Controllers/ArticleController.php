@@ -10,8 +10,9 @@ use App\Http\Requests\UpdateArticleRequest;
 class ArticleController extends Controller
 {
     public function __construct(){
-        return $this->middleware('auth');
+        return $this->middleware(['auth','isAdmin']);
     }
+    
     /**
      * Display a listing of the resource.
      *

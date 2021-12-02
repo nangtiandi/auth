@@ -34,12 +34,16 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav me-auto">
-                        <li class="nav-item">
-                            <a href=" {{route('category.create')}} " class="nav-link">Category</a>
-                        </li>
-                        <li class="nav-item">
-                            <a href=" {{route('article.create')}} " class="nav-link">Article</a>
-                        </li>
+                        @auth
+                            @if (Auth::user()->role == 1)
+                                <li class="nav-item">
+                                    <a href=" {{route('category.create')}} " class="nav-link">Category</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href=" {{route('article.create')}} " class="nav-link">Article</a>
+                                </li>
+                            @endif
+                        @endauth
                     </ul>
 
                     <!-- Right Side Of Navbar -->
@@ -60,6 +64,7 @@
                         @else
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                    <img src=" {{asset('storage/img/'.Auth::user()->photo)}} " alt="" height="35">
                                     {{ Auth::user()->name }}
                                 </a>
 
@@ -73,6 +78,10 @@
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                                         @csrf
                                     </form>
+                                    <hr>
+                                    <a class="dropdown-item" href=" {{route('home.edit')}} ">
+                                        Edit Profile
+                                    </a>
                                 </div>
                             </li>
                         @endguest

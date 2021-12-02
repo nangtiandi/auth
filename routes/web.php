@@ -26,4 +26,6 @@ Route::resource('category',CategoryController::class);
 
 Auth::routes(['verify' => true]);
 
+Route::get('/editProfile', [App\Http\Controllers\HomeController::class, 'editProfile'])->name('home.edit');
+Route::post('/updateProfile', [App\Http\Controllers\HomeController::class, 'updateProfile'])->name('home.update');
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

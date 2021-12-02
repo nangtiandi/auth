@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
@@ -25,4 +27,20 @@ class HomeController extends Controller
     {
         return view('home');
     }
+    public function editProfile(){
+        return view('editProfile');
+    }
+    public function updateProfile(Request $request){
+        $user = User::find(Auth::id());
+
+        $reName = uniqid()."_user.".$request->file('photo')->getClientOriginalExtension();
+        $request->file('photo')->storeAs('public/img',$reName);
+        $user->photo = $reName;
+
+        $user->phone = $request->phone;
+        $user->update();
+
+        return redirect()->back();
+    }
 }
+
